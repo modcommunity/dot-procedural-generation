@@ -8,7 +8,7 @@ Generation that produces a document, and refuses one nobody could finish.
 ln -s ../../dot-core/addons/dot_core addons/dot_core
 ```
 
-The folder is `dot_procedural_generation` rather than `dot_procgen` because **bootstrap maps an addon folder to its repository by replacing `_` with `-`**, with no special cases anywhere. A shorter folder name would need one, and a special case in a list is how every stale list in this tree started. The classes are `DotProcGen*`, which is the same split dot-fps-controller already has.
+The folder is `dot_procedural_generation` rather than `dot_procgen` because **bootstrap maps an addon folder to its repository by replacing `_` with `-`**, with no special cases anywhere. A shorter folder name would need one, and a special case in a list is how every stale list in this tree started. The classes are `DotProcGen*`, which is the same split dot-player-controller already has.
 
 ## Why a document
 

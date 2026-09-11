@@ -1,4 +1,4 @@
-This is the **procedural generation** asset for TMC's **Dot** collection. It adds generated levels as an ordered pipeline of deterministic steps over a document — with a validator that refuses a map nobody could finish.
+This is the **procedural generation** asset for TMC's **Dot** collection. It adds generated levels as an ordered pipeline of deterministic steps over a document, with a validator that refuses a map nobody could finish.
 
 This collection of assets provides modular building blocks for creating games and applications within the TMC ecosystem, ensuring consistency and interoperability across all `dot-*` assets. This includes core functionality, networking, authentication, cloud integration, and more.
 
@@ -24,7 +24,7 @@ What that buys, in order of how much it matters:
 
 Generation is easy. Generation that cannot produce an unplayable round is the problem.
 
-A cellular-automata cave has sealed pockets *by construction*. A room placer can wall off a start it carved earlier. A scattered objective lands in a chamber with no door about one seed in thirty. **Every one of those is invisible to every other kind of check** — the map is well formed, the counts are right, the rooms are the size they should be, and a player walks in and cannot finish.
+A cellular-automata cave has sealed pockets *by construction*. A room placer can wall off a start it carved earlier. A scattered objective lands in a chamber with no door about one seed in thirty. **Every one of those is invisible to every other kind of check.** The map is well formed, the counts are right, the rooms are the size they should be, and a player walks in and cannot finish.
 
 ```gdscript
 var check := DotProcGenValidate.new()
@@ -33,17 +33,17 @@ check.min_connected_fraction = 0.6     # connected AND not mostly wasted
 check.fill_unreachable = true          # usually better than failing
 ```
 
-Failing is not a crash: the pipeline catches it and **tries another seed**, up to `max_attempts`. The attempt is *mixed* into the seed rather than added, because `seed + 1` is somebody else's world — a failure on seed 41 would quietly hand a player the map seed 42 should have produced.
+Failing is not a crash: the pipeline catches it and **tries another seed**, up to `max_attempts`. The attempt is *mixed* into the seed rather than added, because `seed + 1` is somebody else's world, and a failure on seed 41 would quietly hand a player the map seed 42 should have produced.
 
 ## Every step draws from its own named stream
 
-With one shared generator, inserting a step anywhere shifts every later random number — so adding a "scatter some rubble" pass changes the room layout, and a seed somebody shared stops producing the map they shared it for.
+With one shared generator, inserting a step anywhere shifts every later random number, so adding a "scatter some rubble" pass changes the room layout, and a seed somebody shared stops producing the map they shared it for.
 
 `DotProcGenRandom` derives a child stream by hashing a name, and two children never disturb each other however often either is used. A step added at the end changes nothing before it. (It is a second implementation of what the randomness asset has, deliberately: only dot-core may be a hard dependency, and it is the same choice the server-browser asset made about a wire format. What a game's randomness asset supplies is the **seed**, through `seed_source`.)
 
 ## A spanning tree is a bad level
 
-`DotProcGenConnect` builds a minimum spanning tree — the cheapest corridors that guarantee one piece — and then adds `extra_loops` more. A tree has exactly one route between any two rooms, so every fight is a corridor, every retreat is the way you came, and the map reads as a sequence rather than as a place. Every hand-built level in the genre has loops in it.
+`DotProcGenConnect` builds a minimum spanning tree, the cheapest corridors that guarantee one piece, and then adds `extra_loops` more. A tree has exactly one route between any two rooms, so every fight is a corridor, every retreat is the way you came, and the map reads as a sequence rather than as a place. Every hand-built level in the genre has loops in it.
 
 ## Using it
 
@@ -59,7 +59,7 @@ if res.ok:
     build(res.value as DotProcGenDoc)
 ```
 
-Or sliced across frames, one step at a time — on the main thread, because a web template without threads is most of them:
+Or sliced across frames, one step at a time, on the main thread, because a web template without threads is most of them:
 
 ```gdscript
 runner.pipeline = p

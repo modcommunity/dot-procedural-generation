@@ -13,7 +13,7 @@ extends Node
 ## [/codeblock]
 
 const SECTIONS := 8
-const CHECKS := 61
+const CHECKS := 65
 
 var _passed := 0
 var _failed := 0
@@ -119,6 +119,30 @@ func _test_document() -> void:
 	d.fill_rect(Rect2i(1, 1, 3, 3), DotProcGenDoc.FLOOR)
 	_check(d.count_of(DotProcGenDoc.FLOOR) == 9, "a rectangle fills, end-exclusive")
 	_check(d.at(4, 4) == DotProcGenDoc.SOLID, "and does not reach its end corner")
+
+	# `at_v`, `set_v` and `cell_of_index` had no caller. They are the spellings every step
+	# in this addon reaches for -- a neighbour is a Vector2i, and NEIGHBOURS is an
+	# Array[Vector2i] -- so they are the ones a game will use and the ones nothing checked.
+	d.set_v(Vector2i(6, 1), DotProcGenDoc.FLOOR)
+	_check(d.at_v(Vector2i(6, 1)) == DotProcGenDoc.FLOOR, "a cell can be written and read by vector")
+	_check(d.at_v(Vector2i(6, 1)) == d.at(6, 1), "which is the same cell as the pair of ints")
+	_check(
+		d.at_v(Vector2i(-1, -1)) == DotProcGenDoc.SOLID,
+		"and out of bounds is solid by vector too, rather than only by pair"
+	)
+	d.set_v(Vector2i(6, 1), DotProcGenDoc.SOLID)
+
+	# The inverse of the row-major index every cell is stored at. Asserted as a round trip
+	# rather than on one value: an encoder and a decoder that have never met is this
+	# family's own detector, and an off-by-one in the divisor passes any single case at
+	# x = 0.
+	var round_trips := true
+	for i in range(d.cells.size()):
+		var cell := d.cell_of_index(i)
+		if cell.y * d.width + cell.x != i:
+			round_trips = false
+			break
+	_check(round_trips, "every index round-trips to its cell and back, all %d of them" % d.cells.size())
 
 	d.add_marker(&"spawn", Vector2i(2, 2))
 	d.add_marker(&"chest", Vector2i(3, 3))
