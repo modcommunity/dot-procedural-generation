@@ -81,6 +81,6 @@ Copy `addons/dot_procedural_generation/` and [`dot-core`](https://github.com/mod
 
 [dot-core](https://github.com/modcommunity/dot-core). Nothing else.
 
-## License
+## Licence
 
-MIT.
+MIT. See [LICENSE](LICENSE).
