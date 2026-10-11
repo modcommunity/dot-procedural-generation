@@ -48,7 +48,7 @@ const CHANNEL := "procgen"
 ## A name mixed into every seed, so two pipelines on one seed are two different worlds.
 @export var pipeline_name: StringName = &"world"
 
-## Anything with [code]seed_for(name) -> int[/code]. dot-randomness' manager, duck-typed.
+## Anything with [code]seed_for(name) -> int[/code]. dot-core's [DotRandomManager], duck-typed.
 ##
 ## How a generated world comes out of the session's seed rather than out of one of its
 ## own, without this addon depending on that one. Null means the seed passed to

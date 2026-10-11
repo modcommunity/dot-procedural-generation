@@ -18,7 +18,7 @@ Read the family [CLAUDE.md](../../CLAUDE.md) first; this file is only what is sp
 | Path | What |
 | --- | --- |
 | `core/dot_procgen_doc.gd` | `DotProcGenDoc`: grid, rooms, links, markers; `reachable_from`, `fingerprint`, `to_ascii` |
-| `core/dot_procgen_random.gd` | `DotProcGenRandom`: counter-based stream, `stream(name)`, `at(index)` |
+| `core/dot_procgen_random.gd` | `DotProcGenRandom`: this addon's names over dot-core's `DotRandomStream`, which draws every number; `core()` reaches the stream |
 | `core/dot_procgen_step.gd` | `DotProcGenStep`: one pass, the extension point |
 | `core/dot_procgen_pipeline.gd` | `DotProcGenPipeline`: steps, `validate()`, retries (`max_attempts`), `seed_source` |
 | `steps/` | `DotProcGenRooms`, `...Cave`, `...Connect` (`extra_loops`), `...Markers`, `...Validate` (`fill_unreachable`, `min_connected_fraction`) |
@@ -44,8 +44,6 @@ The family's two steps ([game-dev/CLAUDE.md](../../CLAUDE.md#validating-anything
 - Slice only between steps, on the main thread; sliced and blocking runs must give the same fingerprint. [design](docs/design.md#decisions)
 - Type array literals you iterate (`const X: Array[Vector2i]`); `Rect2i` is end-exclusive. [history](docs/history.md)
 
+- `DotProcGenRandom` draws nothing itself: it wraps dot-core's `DotRandomStream`. Never give it its own mixer again. [history](docs/history.md)
+
 Deliberately not here: a builder, noise terrain, wave function collapse, networking. [design](docs/design.md#deliberately-not-here)
-
-## Open
-
-- `DotProcGenRandom` is a second implementation of dot-core's `DotRandomStream` (same SplitMix64 constants, counter-based, `stream(name)`, `at(index)`). Its stated reason, that dot-randomness could not be a dependency, no longer holds: dot-randomness was folded into dot-core's `random/`. Not yet converted. Converting changes every generated map for a given seed, so it wants a decision on whether existing seeds must keep their maps.

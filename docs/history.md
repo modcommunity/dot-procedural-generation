@@ -9,3 +9,7 @@ What building it found. The rules they left are in [CLAUDE.md](../CLAUDE.md).
 ## `Rect2i` is end-exclusive
 
 `Rect2i(1, 1, 3, 3)` covers x and y in `[1, 4)`. A suite check expected ten floor cells and got nine. Off by one in grid code is the commonest arithmetic mistake there is, which is why the suite asserts counts rather than corners.
+
+## The second random stream (removed 2026-10-10)
+
+`DotProcGenRandom` carried its own SplitMix64 copy because the family's stream lived in dot-randomness, which this addon could not depend on. When dot-randomness folded into dot-core the reason went away and the copy stayed. Converting was held back on the belief that it would change every generated map; comparing the two over five seeds and 800 draws each (raw, unit, range and chance) found them identical, because both were written from the same design with the same constants. It is now a wrapper over `DotRandomStream`, and no seed's map changed.

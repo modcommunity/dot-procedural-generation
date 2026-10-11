@@ -26,14 +26,14 @@ With a single shared generator, inserting a step anywhere shifts every later num
 
 **Two steps may not share a name**: `DotProcGenPipeline.validate()` refuses it. Two steps with one name share one stream, so the second continues where the first left off, and reordering them changes both.
 
-The design is counter-based and splittable by name, with 53 bits in a unit and a logical right shift (GDScript's `>>` is arithmetic, so the top of the mixer's output is otherwise a run of ones for half of every value). What crosses into a game is a **seed**, through `DotProcGenPipeline.seed_source`, duck-typed on `seed_for(name)`; dot-core's `DotRandomManager` answers it. `DotProcGenRandom` is a second implementation of dot-core's `DotRandomStream` design; see the open item in [CLAUDE.md](../CLAUDE.md#open).
+The design is counter-based and splittable by name, with 53 bits in a unit and a logical right shift (GDScript's `>>` is arithmetic, so the top of the mixer's output is otherwise a run of ones for half of every value). What crosses into a game is a **seed**, through `DotProcGenPipeline.seed_source`, duck-typed on `seed_for(name)`; dot-core's `DotRandomManager` answers it. `DotProcGenRandom` is a wrapper over dot-core's `DotRandomStream`, which draws every number ([history](history.md#the-second-random-stream-removed-2026-10-10)).
 
 ## The pieces
 
 | | |
 | --- | --- |
 | `DotProcGenDoc` | The grid, the rooms, the links, the markers; `reachable_from`, `fingerprint`, `to_ascii`. |
-| `DotProcGenRandom` | A counter-based splittable stream. |
+| `DotProcGenRandom` | This addon's names over dot-core's counter-based splittable `DotRandomStream`. |
 | `DotProcGenStep` | One pass. Declares its own fingerprint keys. |
 | `DotProcGenRooms` | BSP. A connection plan for free, and no slower as the map fills. |
 | `DotProcGenCave` | Cellular automata. Produces sealed pockets by construction. |
