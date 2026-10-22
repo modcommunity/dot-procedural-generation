@@ -1,0 +1,17 @@
+# comments
+# Baselines only shrink: scripts/<gate> --update lowers or drops entries and refuses to add.
+addons/dot_procedural_generation/core/dot_procgen_doc.gd::long_block	7
+addons/dot_procedural_generation/core/dot_procgen_pipeline.gd::long_block	5
+addons/dot_procedural_generation/core/dot_procgen_random.gd::history	1
+addons/dot_procedural_generation/core/dot_procgen_random.gd::long_block	1
+addons/dot_procedural_generation/core/dot_procgen_step.gd::long_block	4
+addons/dot_procedural_generation/dot_procedural_generation_plugin.gd::long_block	1
+addons/dot_procedural_generation/runtime/dot_procgen_runner.gd::long_block	2
+addons/dot_procedural_generation/steps/dot_procgen_cave.gd::long_block	1
+addons/dot_procedural_generation/steps/dot_procgen_connect.gd::long_block	2
+addons/dot_procedural_generation/steps/dot_procgen_markers.gd::long_block	3
+addons/dot_procedural_generation/steps/dot_procgen_rooms.gd::long_block	1
+addons/dot_procedural_generation/steps/dot_procgen_validate.gd::long_block	4
+examples/procgen_selftest.gd::banner	9
+examples/procgen_selftest.gd::commented_code	1
+examples/procgen_selftest.gd::long_block	2

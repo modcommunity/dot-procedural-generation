@@ -1,0 +1,4 @@
+# frame-hazards
+# Baselines only shrink: scripts/<gate> --update lowers or drops entries and refuses to add.
+addons/dot_procedural_generation/runtime/dot_procgen_runner.gd::_on_attempt_failed::string_build	1
+addons/dot_procedural_generation/runtime/dot_procgen_runner.gd::_process::string_build	1
