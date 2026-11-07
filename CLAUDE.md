@@ -29,7 +29,7 @@ Paths except `examples/` are in `addons/dot_procedural_generation/`.
 
 ## Running and testing
 
-The family's two steps ([game-dev/CLAUDE.md](../../CLAUDE.md#validating-anything)), then `timeout 180 godot --headless --path . res://examples/procgen_selftest.tscn`.
+The family's two steps ([family CLAUDE.md](../../CLAUDE.md#validating-anything)), then `timeout 180 godot --headless --path . res://examples/procgen_selftest.tscn`.
 
 **Never add a check that a particular cell is floor.** That asserts the mixer, breaks whenever a step gains a setting, and says nothing about whether the map is any good. Assert properties: nothing reaches the border, no two rooms overlap, every marker is reachable, more corridors than a tree, two runs of one seed agree.
 
